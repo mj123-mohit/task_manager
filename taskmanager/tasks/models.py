@@ -2,7 +2,11 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-class Task(models.Model):
+class VersionMixing:
+    version = models.IntegerField(default=0)
+
+
+class Task(models.Model, VersionMixing):
     STATUS_CHOICES = [
         ("UNASSIGNED", "Unassigned"),
         ("IN_PROGRESS", "In Progress"),
@@ -25,6 +29,7 @@ class Task(models.Model):
     owner = models.ForeignKey(
         User, related_name="owned_tasks", on_delete=models.SET_NULL, null=True
     )
+    version = models.IntegerField(default=0)
 
     class Meta:
         constraints = [
