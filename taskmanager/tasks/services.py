@@ -23,7 +23,7 @@ def can_add_task_to_sprint(task, sprint_id):
     return sprint.start_date <= task.created_at.date() <= sprint.end_date
 
 
-def get_task_by_date(by_date: date) -> list[Task]:
+def get_task_by_date(by_date: date) -> list:
     return Task.objects.annotate(date_created=TruncDate("created_at")).filter(
         date_created=by_date
     )

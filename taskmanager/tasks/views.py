@@ -59,10 +59,10 @@ def task_home(request):
     return redirect(reverse("tasks:ask-list"))
 
 
-def task_by_date(request: HttpRequest, by_date: date) -> HttpResponse:
+def task_by_date(request: HttpRequest, date: date) -> HttpResponse:
     template = loader.get_template("task_list.html")
-    tasks = services.get_task_by_date(by_date)
-    context = {"tasks": tasks}  # data to inject into the template
+    tasks = services.get_task_by_date(date)
+    context = {"tasks": tasks, "by_date": date}  # Add the date to context
     html = template.render(context, request)
     return HttpResponse(html)
 
